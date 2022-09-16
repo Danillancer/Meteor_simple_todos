@@ -1,15 +1,11 @@
+import { useTracker } from 'meteor/react-meteor-data';
 import React from 'react';
-import { Hello } from './Hello.jsx';
-import { Info } from './Info.jsx';
+import { TasksCollection } from '../api/TasksCollection.js';
 import { Task } from './Task.jsx';
 
 
 export const App = () =>{ 
-  const tasks = [
-    {_id: 1, text: 'First Task'},
-    {_id: 2, text: 'Second Task'},
-    {_id: 3, text: 'Third Task'},
-  ];
+  const tasks = useTracker(() => TasksCollection.find({}).fetch());
   
   return(
   <div>
