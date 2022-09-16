@@ -23,10 +23,10 @@ export const TaskForm = () => {
       component="form"
       onSubmit={handleSubmit}
     >
-    <TextField id="standard-basic" label="Standard" variant="standard" placeholder="Type to add new tasks"
+    <TextField id="standard-basic" variant="standard" placeholder="Type to add new tasks"
         value={text}
         onChange={(e) => setText(e.target.value)}/>
-        <Button type="submit" variant="contained" sx={{mt:1.5, ml:1}}>Add Task</Button>
+        <Button type="submit" variant="contained" sx={{mt:0, ml:1}}>Add Task</Button>
     </Box>
   );
 };
