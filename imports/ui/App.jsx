@@ -2,6 +2,7 @@ import { AppBar, Button, CssBaseline, List } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import { useTracker } from "meteor/react-meteor-data";
 import React, { useState } from "react";
+import { TagsCollection } from "../db/TagsCollection.js";
 import { TasksCollection } from "../db/TasksCollection.js";
 import { LoginForm } from "./LoginForm.jsx";
 import { Task } from "./Task.jsx";
@@ -12,7 +13,6 @@ export const App = () => {
   const hideCompletedFilter = { isChecked: { $ne: true } };
 
   const user = useTracker(() => Meteor.user());
-
   const userFilter = user ? { userId: user._id } : {};
   const pendingOnlyFilter = { ...hideCompletedFilter, ...userFilter };
 
@@ -22,23 +22,19 @@ export const App = () => {
       return noDataAvailable;
     }
     const handler = Meteor.subscribe("tasks");
-
     if (!handler.ready()) {
       return { ...noDataAvailable, isLoading: true };
     }
-
     const tasks = TasksCollection.find(
       hideCompleted ? pendingOnlyFilter : userFilter,
       {
         sort: { createdAt: -1 },
       }
     ).fetch();
-
     const pendingTasksCount = TasksCollection.find(pendingOnlyFilter).count();
 
     return { tasks, pendingTasksCount };
   });
-
 
   const logout = () => Meteor.logout();
 
@@ -47,7 +43,6 @@ export const App = () => {
   };
 
   const deleteTask = ({ _id }) => Meteor.call("tasks.remove", _id);
-
   return (
     <>
       <CssBaseline />
@@ -66,7 +61,7 @@ export const App = () => {
           {user ? `${user.username || user.profile.name} 🚪` : ""}
         </div>
       </AppBar>
-      <Container maxWidth="sm">
+      <Container maxWidth="md">
         {user ? (
           <div>
             <h1>
