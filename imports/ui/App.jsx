@@ -37,14 +37,10 @@ export const App = () => {
   const logout = () => Meteor.logout();
 
   const toggleChecked = ({ _id, isChecked }) => {
-    TasksCollection.update(_id, {
-      $set: {
-        isChecked: !isChecked,
-      },
-    });
+    Meteor.call('tasks.setIsChecked', _id, !isChecked);
   };
-  
-  const deleteTask = ({ _id }) => TasksCollection.remove(_id);
+
+  const deleteTask = ({ _id }) => Meteor.call('tasks.remove', _id)
 
   return (
     <>
@@ -62,7 +58,7 @@ export const App = () => {
               📝️ To Do List :
               {pendingTasksCount ? ` ${pendingTasksCount}` : "0"}
             </h1>
-            <TaskForm user={user} />
+            <TaskForm />
             <Box component="div" sx={{ textAlign: "center", mt: 1 }}>
               <Button
                 variant="outlined"
