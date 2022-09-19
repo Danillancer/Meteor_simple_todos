@@ -19,7 +19,6 @@ Meteor.startup(() => {
       password: SEED_PASSWORD,
     });
   }
-
   const user = Accounts.findUserByUsername(SEED_USERNAME);
 
   if (TasksCollection.find().count() === 0) {
@@ -34,3 +33,14 @@ Meteor.startup(() => {
     ].forEach(taskText => insertTask(taskText, user));
   }
 });
+
+ServiceConfiguration.configurations.upsert(
+  { service: 'github' },
+  {
+    $set: {
+      loginStyle: 'popup',
+      clientId: '1432f60fc1417c2024ed', // insert your clientId here
+      secret: 'a5d54ccfb4b16ac4663297e793257423ab176f3b', // insert your secret here
+    },
+  }
+);

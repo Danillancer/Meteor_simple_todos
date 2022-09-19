@@ -31,10 +31,11 @@ export const App = () => {
     if (!user) {
       return 0;
     }
-
     return TasksCollection.find(pendingOnlyFilter).count();
   });
+
   const logout = () => Meteor.logout();
+
   const toggleChecked = ({ _id, isChecked }) => {
     TasksCollection.update(_id, {
       $set: {
@@ -42,6 +43,7 @@ export const App = () => {
       },
     });
   };
+  
   const deleteTask = ({ _id }) => TasksCollection.remove(_id);
 
   return (
@@ -49,8 +51,8 @@ export const App = () => {
       <CssBaseline />
       <AppBar position="static" sx={{ mb: 2, pl: 1, flexDirection:"row",justifyContent:"space-around", alignItems:"center" }}>
         <h1>Welcome to Meteor!</h1>
-        <div className="user" onClick={logout}>
-        {user? `${user.username}🚪`: ''}
+        <div onClick={logout}>
+        {user? `${user.username || user.profile.name} 🚪`:''}
       </div>
       </AppBar>
       <Container maxWidth="sm">
