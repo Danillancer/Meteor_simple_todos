@@ -257,7 +257,7 @@ export default function TagField({ setTagValue, tagValue, setText, text }) {
         sx={{ mt: 0, ml: 0.5 }}
         onClick={(e) => {
           handleSubmit();
-          getClearProps().onClick(e);
+         if (text) getClearProps().onClick(e);
         }}
       >
         Add Task
