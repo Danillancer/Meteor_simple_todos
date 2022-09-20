@@ -183,7 +183,6 @@ export default function TagField({ setTagValue, tagValue, setText, text }) {
     } else {
       setTags(tag.slice(0, 10));
     }
-
     return {};
   }, [tagInputValue]);
 

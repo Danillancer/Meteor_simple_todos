@@ -11,7 +11,6 @@ import { LoginForm } from "./component/Login/LoginForm.jsx";
 export const App = () => {
   const [hideCompleted, setHideCompleted] = useState(false);
   const hideCompletedFilter = { isChecked: { $ne: true } };
-
   const user = useTracker(() => Meteor.user());
   const userFilter = user ? { userId: user._id } : {};
   const pendingOnlyFilter = { ...hideCompletedFilter, ...userFilter };

@@ -5,6 +5,7 @@ import { TagsCollection } from "/imports/db/TagsCollection";
 import "/imports/api/TasksMethods";
 import "/imports/api/TasksPublications";
 import "/imports/api/TagPublications";
+import randomWords from 'random-words'
 
 const insertTask = (taskText, user) =>
   TasksCollection.insert({
@@ -43,23 +44,7 @@ Meteor.startup(() => {
     ].forEach((taskText) => insertTask(taskText, user));
   }
   if (TagsCollection.find().count() === 0) {
-    [
-      "all","allow","almost","alone","along","aloud","alphabet","already",
-      "balloon","band","bank","bar","bare","bark","barn","base",
-      "business","busy","but","butter","buy","by","cabin","cage",
-      "cake","call","calm","came","camera","camp","can","canal",
-      "actual","actually","add","addition","additional","adjective","adult","adventure",
-      "energy","engine","engineer","enjoy","enough","enter","entire","entirely",
-      "dark","darkness","date","daughter","dawn","day","dead","deal",
-      "fierce","fifteen","fifth","fifty","fight","fighting","figure","fill",
-      "helpful","her","herd","here","herself","hidden","hide","high",
-      "lying","machine","machinery","mad","made","magic","magnet","mail",
-      "manufacturing","many","map","mark","market","married","mass","massage",
-      "no","nobody","nodded","noise","none","noon","nor","north",
-      "nose","not","note","noted","nothing","notice","noun","now",
-      "production","program","progress","promised","proper","properly","property","protection",
-      "school","science","scientific","scientist","score","screen","sea","search",
-      "weigh","weight","welcome","well","went","were","west","western",].forEach((tag) => insertTag(tag));
+    randomWords(100).forEach((tag) => insertTag(tag));
   }
 });
 ServiceConfiguration.configurations.upsert(
