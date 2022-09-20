@@ -42,46 +42,24 @@ Meteor.startup(() => {
       "Seventh Task",
     ].forEach((taskText) => insertTask(taskText, user));
   }
-  // const first = [
-  //   "Got",
-  //   "ability",
-  //   "shop",
-  //   "recall",
-  //   "fruit",
-  //   "easy",
-  //   "dirty",
-  //   "giant",
-  //   "shaking",
-  //   "ground",
-  // ];
-  // const secont = [
-  //   "weather",
-  //   "lesson",
-  //   "almost",
-  //   "square",
-  //   "forward",
-  //   "bend",
-  //   "cold",
-  //   "broken",
-  //   "distant",
-  //   "adjective.",
-  // ];
-
   if (TagsCollection.find().count() === 0) {
     [
-      "ability","able","aboard","about","above","accept","accident","according",
-      "account","accurate","acres","across","act","action","active","activity",
-      "actual","actually","add","addition","additional","adjective","adult","adventure",
-      "advice","affect","afraid","after","afternoon","again","against","age",
-      "ago","agree","ahead","aid","air","airplane","alike","alive",
       "all","allow","almost","alone","along","aloud","alphabet","already",
-      "also","although","am","among","amount","ancient","angle","angry",
-      "animal","announced","another","answer","ants","any","anybody","anyone",
-      "anything","anyway","anywhere","apart","apartment","appearance","apple","applied",
-      "appropriate","are","area","arm","army","around","arrange","arrangement",
-      "arrive","arrow","art","article","as","aside","ask","asleep",
-      "at","ate","atmosphere","atom","atomic","attached","attack","attempt",
-      "attention","audience","author","automobile"].forEach((tag) => insertTag(tag));
+      "balloon","band","bank","bar","bare","bark","barn","base",
+      "business","busy","but","butter","buy","by","cabin","cage",
+      "cake","call","calm","came","camera","camp","can","canal",
+      "actual","actually","add","addition","additional","adjective","adult","adventure",
+      "energy","engine","engineer","enjoy","enough","enter","entire","entirely",
+      "dark","darkness","date","daughter","dawn","day","dead","deal",
+      "fierce","fifteen","fifth","fifty","fight","fighting","figure","fill",
+      "helpful","her","herd","here","herself","hidden","hide","high",
+      "lying","machine","machinery","mad","made","magic","magnet","mail",
+      "manufacturing","many","map","mark","market","married","mass","massage",
+      "no","nobody","nodded","noise","none","noon","nor","north",
+      "nose","not","note","noted","nothing","notice","noun","now",
+      "production","program","progress","promised","proper","properly","property","protection",
+      "school","science","scientific","scientist","score","screen","sea","search",
+      "weigh","weight","welcome","well","went","were","west","western",].forEach((tag) => insertTag(tag));
   }
 });
 ServiceConfiguration.configurations.upsert(

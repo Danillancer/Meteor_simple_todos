@@ -14,7 +14,7 @@ export const Task = ({ task, onCheckboxClick, onDeleteClick  }) => {
     </label>
     <Box sx={{display:"flex"}}>
     {task.tag? (task.tag.map(tag=>{
-     return (<Chip label={tag.text} sx={{ml:1}}/>)
+     return (<Chip key={tag._id} label={tag.text} sx={{ml:1}}/>)
     })):<></>}
     <Button color="error" onClick={()=> onDeleteClick(task)} ><DeleteIcon/></Button>
     </Box>
