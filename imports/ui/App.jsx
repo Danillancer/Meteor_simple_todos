@@ -1,12 +1,12 @@
-import { AppBar, Button, CssBaseline, List } from "@mui/material";
+import { AppBar, Button, CssBaseline, List, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import { useTracker } from "meteor/react-meteor-data";
 import React, { useState } from "react";
 import { TagsCollection } from "../db/TagsCollection.js";
 import { TasksCollection } from "../db/TasksCollection.js";
-import { LoginForm } from "./LoginForm.jsx";
-import { Task } from "./Task.jsx";
-import { TaskForm } from "./TaskForm.jsx";
+import { Task } from "./component/Form/Task.jsx";
+import { TaskForm } from "./component/Form/TaskForm.jsx";
+import { LoginForm } from "./component/Login/LoginForm.jsx";
 
 export const App = () => {
   const [hideCompleted, setHideCompleted] = useState(false);
@@ -64,10 +64,11 @@ export const App = () => {
       <Container maxWidth="md">
         {user ? (
           <div>
-            <h1>
+            
+            <Typography component='h1' variant='h4' sx={{m:1}}>
               📝️ To Do List :
               {pendingTasksCount ? ` ${pendingTasksCount}` : "0"}
-            </h1>
+            </Typography>
             <TaskForm />
             <Box component="div" sx={{ textAlign: "center", mt: 1 }}>
               <Button
