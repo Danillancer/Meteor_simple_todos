@@ -233,10 +233,11 @@ export default function TagField({ setTagValue, tagValue, setText, text }) {
             ))}
 
             <input
+            
               {...getInputProps()}
               onChange={(e) => {
                 getInputProps().onChange(e);
-              }}
+              }}placeholder="add tag"
             />
           </InputWrapper>
         </div>

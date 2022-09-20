@@ -7,7 +7,7 @@ export const TaskForm = () => {
   const [text, setText] = useState("");
   const [tagValue, setTagValue] = React.useState([]);
   return (
-    <Box component="div" sx={{ textAlign: "center", display: "flex" }}>
+    <Box component="div" sx={{ textAlign: "center", display: "flex",justifyContent:'center'}}>
       <TextField
         id="standard-basic"
         variant="standard"
