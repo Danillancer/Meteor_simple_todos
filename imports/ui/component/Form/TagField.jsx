@@ -160,6 +160,7 @@ export default function TagField({setText, text }) {
   const [tags, setTags] = React.useState([]);
   const [tagInputValue, setTagInputValue] = React.useState("");
   const [tagValue, setTagValue] = React.useState([]);
+  
   const myDebounce = (fn, ms) => {
     let timeout;
     return function () {
@@ -171,9 +172,10 @@ export default function TagField({setText, text }) {
     };
   };
   useTracker(() => {
-    Meteor.subscribe("tags");
-    const tag =TagsCollection.find({}).fetch();
     
+    Meteor.subscribe("tags");
+    
+    const tag =TagsCollection.find({}).fetch();
     if (tagInputValue.length >= 2) {
       myDebounce(() => {
         setTags(
@@ -184,7 +186,7 @@ export default function TagField({setText, text }) {
       setTags(tag.slice(0, 10));
     }
     return {};
-  },[]);
+  },[tagInputValue]);
 
   const {
     getRootProps,
