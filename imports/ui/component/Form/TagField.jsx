@@ -158,8 +158,7 @@ const Listbox = styled("ul")(
 
 export default function TagField({ setTagValue, tagValue, setText, text }) {
   const [tags, setTags] = React.useState([]);
-
-  const myDebounce = (fn, ms) => {
+  const [tagInputValue, setTagInputValue] = React.useState("");const myDebounce = (fn, ms) => {
     let timeout;
     return function () {
       const fnCall = () => {
@@ -169,9 +168,8 @@ export default function TagField({ setTagValue, tagValue, setText, text }) {
       timeout = setTimeout(fnCall, ms);
     };
   };
-
-  const [tagInputValue, setTagInputValue] = React.useState("");
   useTracker(() => {
+    console.log(1);
     Meteor.subscribe("tags");
     const tag = TagsCollection.find({}).fetch();
     if (tagInputValue.length >= 2) {
@@ -184,7 +182,7 @@ export default function TagField({ setTagValue, tagValue, setText, text }) {
       setTags(tag.slice(0, 10));
     }
     return {};
-  }, [tagInputValue]);
+  },[]);
 
   const {
     getRootProps,
