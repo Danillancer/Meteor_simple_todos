@@ -5,7 +5,6 @@ import TagField from "./TagField";
 
 export const TaskForm = () => {
   const [text, setText] = useState("");
-  const [tagValue, setTagValue] = React.useState([]);
   return (
     <Box component="div" sx={{ textAlign: "center", display: "flex",justifyContent:'center'}}>
       <TextField
@@ -17,8 +16,6 @@ export const TaskForm = () => {
         sx={{ mr: 0.5 }}
       />
       <TagField
-        setTagValue={setTagValue}
-        tagValue={tagValue}
         setText={setText}
         text={text}
       />
