@@ -6,6 +6,7 @@ import { TagsCollection } from "../db/TagsCollection.js";
 import { TasksCollection } from "../db/TasksCollection.js";
 import { Task } from "./component/Form/Task.jsx";
 import { TaskForm } from "./component/Form/TaskForm.jsx";
+import { Header } from "./component/Header/Header.jsx";
 import { LoginForm } from "./component/Login/LoginForm.jsx";
 
 export const App = () => {
@@ -45,26 +46,11 @@ export const App = () => {
   return (
     <>
       <CssBaseline />
-      <AppBar
-        position="static"
-        sx={{
-          mb: 2,
-          pl: 1,
-          flexDirection: "row",
-          justifyContent: "space-around",
-          alignItems: "center",
-        }}
-      >
-        <h1>Welcome to Meteor!</h1>
-        <div onClick={logout}>
-          {user ? `${user.username || user.profile.name} 🚪` : ""}
-        </div>
-      </AppBar>
+      <Header user={user} logout={logout}/>
       <Container maxWidth="md">
         {user ? (
-          <div>
-            
-            <Typography component='h1' variant='h4' sx={{m:1}}>
+          <>
+            <Typography component="h1" variant="h4" sx={{ m: 1 }}>
               📝️ To Do List :
               {pendingTasksCount ? ` ${pendingTasksCount}` : "0"}
             </Typography>
@@ -88,7 +74,7 @@ export const App = () => {
                 />
               ))}
             </List>
-          </div>
+          </>
         ) : (
           <LoginForm />
         )}
