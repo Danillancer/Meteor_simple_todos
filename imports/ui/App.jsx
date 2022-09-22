@@ -1,10 +1,8 @@
-import { AppBar, Button, CssBaseline, List, Typography } from "@mui/material";
+import {Button, CssBaseline, List, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import { useTracker } from "meteor/react-meteor-data";
 import React, { useState } from "react";
-import { TagsCollection } from "../db/TagsCollection.js";
-import { TasksCollection } from "../db/TasksCollection.js";
-import { Task } from "./component/TaskList/Task.jsx";
+import { TasksCollection } from "/imports/api/Tasks/TasksCollection";
 import { TaskForm } from "./component/Form/TaskForm.jsx";
 import { Header } from "./component/Header/Header.jsx";
 import { LoginForm } from "./component/Login/LoginForm.jsx";

@@ -1,4 +1,4 @@
-import { TagsCollection } from "/imports/db/TagsCollection";
+import { TagsCollection } from "/imports/api/Tags/TagsCollection";
 import randomWords from 'random-words'
 const insertTag = (tag) =>
 TagsCollection.insert({

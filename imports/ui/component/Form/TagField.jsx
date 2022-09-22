@@ -1,6 +1,6 @@
 import * as React from "react";
 import Autocomplete, { autocompleteClasses } from "@mui/material/Autocomplete";
-import { TagsCollection } from "../../../db/TagsCollection";
+import { TagsCollection } from "/imports/api/Tags/TagsCollection";
 import { useTracker } from "meteor/react-meteor-data";
 import { Button, TextField } from "@mui/material";
 import debounce from "lodash.debounce";
@@ -9,17 +9,6 @@ export default function TagField({ setText, text }) {
   const [tags, setTags] = React.useState([]);
   const [tagInputValue, setTagInputValue] = React.useState("");
   const [tagValue, setTagValue] = React.useState([]);
-  const myDebounce = (fn, ms) => {
-    let timeout;
-    return function () {
-      const fnCall = () => {
-        fn.apply(this, arguments);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(fnCall, ms);
-    };
-  };
-
   const { tag = [], isLoading = false } = useTracker(() => {
     const hangler = Meteor.subscribe("tags");
     const tag = TagsCollection.find({}, { limit: 50 }).fetch();
@@ -38,11 +27,11 @@ export default function TagField({ setText, text }) {
 
   React.useEffect(() => {
     if (tagInputValue.length >= 2) {
-      myDebounce(() => {
+      debounce(() => {
         setTags(tag.filter((el) => el.text.includes(tagInputValue)));
       }, 300)();
     } else {
-      setTags(tag.slice(0, 10));
+      setTags(tag.filter((el) => el.text.includes(tagInputValue)).slice(0, 10));
     }
   }, [tagInputValue]);
 
