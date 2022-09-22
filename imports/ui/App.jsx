@@ -4,10 +4,11 @@ import { useTracker } from "meteor/react-meteor-data";
 import React, { useState } from "react";
 import { TagsCollection } from "../db/TagsCollection.js";
 import { TasksCollection } from "../db/TasksCollection.js";
-import { Task } from "./component/Form/Task.jsx";
+import { Task } from "./component/TaskList/Task.jsx";
 import { TaskForm } from "./component/Form/TaskForm.jsx";
 import { Header } from "./component/Header/Header.jsx";
 import { LoginForm } from "./component/Login/LoginForm.jsx";
+import { TaskList } from "./component/TaskList/TaskList.jsx";
 
 export const App = () => {
   const [hideCompleted, setHideCompleted] = useState(false);
@@ -46,7 +47,7 @@ export const App = () => {
   return (
     <>
       <CssBaseline />
-      <Header user={user} logout={logout}/>
+      <Header user={user} logout={logout} />
       <Container maxWidth="md">
         {user ? (
           <>
@@ -64,16 +65,11 @@ export const App = () => {
               </Button>
             </Box>
             {isLoading && <div className="loading">loading...</div>}
-            <List>
-              {tasks.map((task) => (
-                <Task
-                  key={task._id}
-                  task={task}
-                  onCheckboxClick={toggleChecked}
-                  onDeleteClick={deleteTask}
-                />
-              ))}
-            </List>
+            <TaskList
+              toggleChecked={toggleChecked}
+              deleteTask={deleteTask}
+              tasks={tasks}
+            />
           </>
         ) : (
           <LoginForm />
