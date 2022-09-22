@@ -19,26 +19,32 @@ export default function TagField({ setText, text }) {
       timeout = setTimeout(fnCall, ms);
     };
   };
- 
-  const {tag} = useTracker(() => {
-    Meteor.subscribe("tags");
-   const tag= TagsCollection.find({},{limit:50}).fetch();
-    return{tag}
+
+  const { tag = [], isLoading = false } = useTracker(() => {
+    const hangler = Meteor.subscribe("tags");
+    const tag = TagsCollection.find({}, { limit: 50 }).fetch();
+
+    if (hangler.ready()) {
+      return { tag: tag, isLoading: true };
+    }
+    return { tag };
   });
 
-React.useEffect(()=>{
-  if (tag) {
+  React.useEffect(() => {
+    if (isLoading) {
+      setTags(tag.slice(0, 10));
+    }
+  }, [isLoading]);
+
+  React.useEffect(() => {
     if (tagInputValue.length >= 2) {
       myDebounce(() => {
-        setTags(
-          tag.filter((el) => el.text.includes(tagInputValue))
-        );
+        setTags(tag.filter((el) => el.text.includes(tagInputValue)));
       }, 300)();
-    }else{
-      setTags(tag.slice(0, 10))
+    } else {
+      setTags(tag.slice(0, 10));
     }
-  }
-},[tagInputValue])
+  }, [tagInputValue]);
 
   const handleSubmit = () => {
     if (!text) return;
@@ -49,32 +55,28 @@ React.useEffect(()=>{
   return (
     <>
       <Autocomplete
-                    id="multiple-limit-tags"
-                    multiple
-                    limitTags={4}
-                    /* Configure options and values */
-                    isOptionEqualToValue={(option, value) => option._id === value._id}
-                    options={tags}
-                    value={tagValue}
-                    size={"small"}
-                    onChange={(event, values) => {
-                      console.log(values);
-                      setTagValue(values)
-                    }}
-                    filterOptions={(x) => x}
-                    onInputChange={(event, newInputValue) => {
-                      setTagInputValue(newInputValue);
-                    }}
-                    getOptionLabel={(tag) => tag.text}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            label="Tags"
-                            placeholder="Add tags"
-                        />
-                    )}
-                    sx={{ width: '500px' }}
-                />
+        id="multiple-limit-tags"
+        multiple
+        limitTags={4}
+        /* Configure options and values */
+        isOptionEqualToValue={(option, value) => option._id === value._id}
+        options={tags}
+        value={tagValue}
+        size={"small"}
+        onChange={(event, values) => {
+          console.log(values);
+          setTagValue(values);
+        }}
+        filterOptions={(x) => x}
+        onInputChange={(event, newInputValue) => {
+          setTagInputValue(newInputValue);
+        }}
+        getOptionLabel={(tag) => tag.text}
+        renderInput={(params) => (
+          <TextField {...params} label="Tags" placeholder="Add tags" />
+        )}
+        sx={{ width: "500px" }}
+      />
       <Button
         type="submit"
         variant="contained"
