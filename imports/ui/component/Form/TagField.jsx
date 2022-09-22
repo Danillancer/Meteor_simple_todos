@@ -26,7 +26,6 @@ export default function TagField({ setText, text }) {
     return{tag}
   });
 
-console.log(tag);
 React.useEffect(()=>{
   if (tag) {
     if (tagInputValue.length >= 2) {
