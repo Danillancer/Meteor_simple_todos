@@ -1,39 +1,55 @@
 import * as React from "react";
 import Autocomplete from "@mui/material/Autocomplete";
-import { useTracker } from "meteor/react-meteor-data";
 import { Button, TextField } from "@mui/material";
-import debounce from "lodash.debounce";
-import { TagsCollection } from "../../../api/Tags/TagsCollection";
 
 export default function TagField({ setText, text }) {
   const [tags, setTags] = React.useState([]);
   const [tagInputValue, setTagInputValue] = React.useState("");
   const [tagValue, setTagValue] = React.useState([]);
-  const { tag = [], isLoading = false } = useTracker(() => {
-    const hangler = Meteor.subscribe("tags");
-    const tag = TagsCollection.find({}, { limit: 50 }).fetch();
+  const [search, setSearch] = React.useState("");
+  const [timer, setTimer] = React.useState(null);
 
-    if (hangler.ready()) {
-      return { tag: tag, isLoading: true };
-    }
-    return { tag };
-  });
+  const asyncCallMethod = (methodName, ...args) => {
+    return new Promise((resolve, reject) => {
+      Meteor.call(methodName, ...args, (error, result) => {
+        if (error) {
+          reject(error);
+        }
+
+        resolve(result);
+      });
+    });
+  };
+
 
   React.useEffect(() => {
-    if (isLoading) {
-      setTags(tag.slice(0, 10));
+    if (timer) {
+        clearTimeout(timer);
+        setTimer(null);
     }
-  }, [isLoading]);
+    const timerEl = setTimeout(() => {
+        setSearch(tagInputValue);
+    }, 300);
+    setTimer(timerEl);
+}, [tagInputValue]);
 
   React.useEffect(() => {
-    if (tagInputValue.length >= 2) {
-      debounce(() => {
-        setTags(tag.filter((el) => el.text.includes(tagInputValue)));
-      }, 300)();
-    } else {
-      setTags(tag.filter((el) => el.text.includes(tagInputValue)).slice(0, 10));
-    }
-  }, [tagInputValue]);
+    const loadTags = async() => {
+      let tags;
+      if (search.length >= 2) {
+          tags = await asyncCallMethod("tags.getAll", {
+            query: search,
+            limit: 50,
+          });
+      } else {
+          tags = await asyncCallMethod("tags.getAll", { limit: 10 });
+      }
+      if (tags) {
+        setTags(tags.filter((el) => el.text.includes(search)));
+      }
+    };
+    loadTags();
+  }, [search]);
 
   const handleSubmit = () => {
     if (!text) return;

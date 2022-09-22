@@ -5,5 +5,5 @@ import { TagsCollection } from '../TagsCollection';
 
 
 Meteor.publish('tags', function publishTags() {
-  return TagsCollection.find();
+  return TagsCollection.find({},{ limit: 10 });
 });

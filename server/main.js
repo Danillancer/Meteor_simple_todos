@@ -1,5 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import "../imports/api/Tasks/methods/TasksMethods";
+import "../imports/api/Tags/methods/TagsMethods";
 import "../imports/api/Tasks/publications/TasksPublications";
 import "../imports/api/Tags/publications/TagPublications"
 import { userInsert } from "./autoInserts/userInsert";
