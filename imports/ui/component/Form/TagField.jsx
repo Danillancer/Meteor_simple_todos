@@ -1,9 +1,9 @@
 import * as React from "react";
-import Autocomplete, { autocompleteClasses } from "@mui/material/Autocomplete";
-import { TagsCollection } from "/imports/api/Tags/TagsCollection";
+import Autocomplete from "@mui/material/Autocomplete";
 import { useTracker } from "meteor/react-meteor-data";
 import { Button, TextField } from "@mui/material";
 import debounce from "lodash.debounce";
+import { TagsCollection } from "../../../api/Tags/TagsCollection";
 
 export default function TagField({ setText, text }) {
   const [tags, setTags] = React.useState([]);

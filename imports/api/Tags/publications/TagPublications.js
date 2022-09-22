@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
-import { TagsCollection } from '/imports/api/Tags/TagsCollection';
+import { TagsCollection } from '../TagsCollection';
+
 
 
 

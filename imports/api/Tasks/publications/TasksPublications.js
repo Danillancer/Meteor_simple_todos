@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
-import { TasksCollection } from '/imports/api/Tasks/TasksCollection';
+import { TasksCollection } from '../TasksCollection';
+
 
 
 Meteor.publish('tasks', function publishTasks() {

@@ -1,5 +1,5 @@
 import { Accounts } from "meteor/accounts-base";
-import { TasksCollection } from "/imports/api/Tasks/TasksCollection";
+import { TasksCollection } from "../../imports/api/Tasks/TasksCollection";
 import { SEED_USERNAME } from "./userInsert";
 
 const insertTask = (taskText, user) =>

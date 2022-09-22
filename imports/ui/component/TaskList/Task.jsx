@@ -1,4 +1,4 @@
-import { Autocomplete, Box, Button, Checkbox, Chip, ListItem, TextField } from '@mui/material';
+import {Box, Button, Checkbox, Chip, ListItem} from '@mui/material';
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 export const Task = ({ task, onCheckboxClick, onDeleteClick  }) => {

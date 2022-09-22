@@ -2,7 +2,7 @@ import {Button, CssBaseline, List, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import { useTracker } from "meteor/react-meteor-data";
 import React, { useState } from "react";
-import { TasksCollection } from "/imports/api/Tasks/TasksCollection";
+import { TasksCollection } from "../api/Tasks/TasksCollection.js";
 import { TaskForm } from "./component/Form/TaskForm.jsx";
 import { Header } from "./component/Header/Header.jsx";
 import { LoginForm } from "./component/Login/LoginForm.jsx";
